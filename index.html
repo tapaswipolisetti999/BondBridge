@@ -1,11 +1,81 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>BondBridge</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BondBridge - Starry Night</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: radial-gradient(circle, #1a1a2e, #0f3460);
+      color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .btn {
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      background-color: #e94560;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #ff2e63;
+    }
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: transparent;
+      box-shadow:
+        0px 0px 2px white,
+        100px 200px 1px white,
+        300px 150px 2px white,
+        400px 300px 1px white,
+        700px 100px 2px white,
+        500px 500px 1px white,
+        900px 200px 2px white;
+      animation: twinkle 3s infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 0.2; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Welcome to BondBridge</h1>
-    <p>This is a website for long-distance friends 💙</p>
+  <div class="stars"></div>
+  <h1>BondBridge</h1>
+  <p>No matter how far, we’re still close ✨</p>
+  <button class="btn" onclick="alert('Coming soon!')">Start Chatting</button>
 </body>
 </html>
+
