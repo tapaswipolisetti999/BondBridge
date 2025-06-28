@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>BondBridge Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #16213e, #0f3460);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      padding: 20px;
+      background-color: #1a1a2e;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .container {
+      padding: 30px;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    .reminders {
+      margin-top: 20px;
+    }
+
+    .reminders input {
+      padding: 10px;
+      width: 70%;
+      margin-right: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    .reminders button {
+      padding: 10px 20px;
+      background-color: #e94560;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    ul {
+      margin-top: 20px;
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      padding: 10px;
+      background-color: rgba(255, 255, 255, 0.05);
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>BondBridge Dashboard</h1>
+    <button onclick="logout()" style="background:#e94560; color:white; border:none; padding:10px 20px; border-radius:5px;">Logout</button>
+  </header>
+
+  <div class="container">
+    <h2>Welcome, <span id="user-email"></span> 👋</h2>
+
+    <div class="reminders">
+      <input type="text" id="reminder-input" placeholder="Add a shared reminder..." />
+      <button onclick="addReminder()">Add</button>
+
+      <ul id="reminder-list"></ul>
+    </div>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCnbPDQeNHRjTp-klWghsDE1hzLT6h1Ad8",
+      authDomain: "bondbridge-5839e.firebaseapp.com",
+      projectId: "bondbridge-5839e",
+      storageBucket: "bondbridge-5839e.appspot.com",
+      messagingSenderId: "475972546625",
+      appId: "1:475972546625:web:f3db2824a2801b49b056c0",
+      measurementId: "G-CN274PS33"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Display current user
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById("user-email").textContent = user.email;
+      } else {
+        window.location.href = "auth.html";
+      }
+    });
+
+    function logout() {
+      signOut(auth).then(() => {
+        alert("Logged out");
+        window.location.href = "auth.html";
+      });
+    }
+
+    // Local reminders (we’ll use Firestore next)
+    function addReminder() {
+      const text = document.getElementById("reminder-input").value;
+      if (text.trim()) {
+        const li = document.createElement("li");
+        li.textContent = text;
+        document.getElementById("reminder-list").appendChild(li);
+        document.getElementById("reminder-input").value = "";
+      }
+    }
+  </script>
+</body>
+</html>
